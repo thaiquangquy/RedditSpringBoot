@@ -4,6 +4,7 @@ import com.quythai.redditclone.exceptions.SpringRedditException;
 import com.quythai.redditclone.model.RedditUser;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +28,7 @@ public class JwtProvider {
         }
     }
     public String generateToken(Authentication authentication) {
-        RedditUser principal = (RedditUser) authentication.getPrincipal();
+        User principal = (User) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject(principal.getUsername())
                 .signWith(getPrivateKey())
